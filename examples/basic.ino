@@ -7,7 +7,7 @@ KnWiFiManager kn;
 void setup()
 {
     Serial.begin(115200);
-    kn.setConfigPortalTimeout(300);
+    kn.setTimeout(180);
     kn.autoConnect();
 
     Blynk.config(kn.getblynkToken(), kn.getblynkServer(), kn.getblynkPort());
