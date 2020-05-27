@@ -4,7 +4,7 @@
 #include "KnWiFiManager.h"
 KnWiFiManager kn;
 
-const String _AppName = "Example..";
+const char _AppName[] = "Example..";
 
 void setup()
 {
