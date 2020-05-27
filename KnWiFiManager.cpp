@@ -96,7 +96,7 @@ void KnWiFiManager::handle_Blynk()
     //page += _customHeadElement;
     page += FPSTR(HTTP_HEADER_END);
     page += String(F("<h1>"));
-    page += _apName;
+    page += _AppName;
     page += String(F("</h1>"));
     page += String(F("<h3>Blynk Config</h3>"));
 
@@ -152,8 +152,9 @@ void KnWiFiManager::handle_Info()
     page += FPSTR(HTTP_STYLE);
     //page += _customHeadElement;
     page += FPSTR(HTTP_HEADER_END);
-    page += String(F("<h1>MULTINET</h1>"));
-    page += String(F("<h3>Hardware Information</h3>"));
+    page += String(F("<h1>"));
+    page += _AppName;
+    page += String(F("</h1><h3>Hardware Information</h3>"));
 
     page += F("<dl>");
     page += F("<dt>Chip ID</dt><dd>");
@@ -197,7 +198,7 @@ void KnWiFiManager::handle_Reset()
     //page += _customHeadElement;
     page += FPSTR(HTTP_HEADER_END);
     page += String(F("<h1>"));
-    page += _apName;
+    page += _AppName;
     page += String(F("</h1>"));
     page += String(F("<h3>Restart Hardware</h3>"));
 
@@ -242,8 +243,9 @@ void KnWiFiManager::handle_BootOpt()
     page += FPSTR(HTTP_SCRIPT);
     page += FPSTR(HTTP_STYLE);
     page += FPSTR(HTTP_HEADER_END);
-    page += String(F("<h1>MULTINET</h1>"));
-    page += String(F("<h3>Next Boot Config</h3>"));
+    page += String(F("<h1>"));
+    page += _AppName;
+    page += String(F("</h1><h3>Next Boot Config</h3>"));
 
     String item = FPSTR(AHTTP_FORM_BOOT);
     if (_knsettings.bootAP)
@@ -301,6 +303,11 @@ void KnWiFiManager::handle_BootOptSave()
 void KnWiFiManager::setTimeout(unsigned long seconds)
 {
     setConfigPortalTimeout(seconds);
+}
+
+void KnWiFiManager::setAppName(const String &val)
+{
+    _AppName = val;
 }
 
 void KnWiFiManager::setConfigPortalTimeout(unsigned long seconds)
@@ -614,7 +621,7 @@ void KnWiFiManager::handleRoot()
     //page += _customHeadElement;
     page += FPSTR(HTTP_HEADER_END);
     page += String(F("<h1>"));
-    page += _apName;
+    page += _AppName;
     page += String(F("</h1>"));
     page += String(F("<h3>Setting</h3>"));
     page += FPSTR(HTTP_PORTAL_OPTIONS);

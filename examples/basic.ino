@@ -4,9 +4,12 @@
 #include "KnWiFiManager.h"
 KnWiFiManager kn;
 
+const String _AppName = "Example..";
+
 void setup()
 {
     Serial.begin(115200);
+    kn.setAppName(_AppName);
     kn.setTimeout(180);
     kn.autoConnect();
 

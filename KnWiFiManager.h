@@ -104,6 +104,7 @@ public:
     //in seconds setConfigPortalTimeout is a new name for setTimeout
     void setConfigPortalTimeout(unsigned long seconds);
     void setTimeout(unsigned long seconds);
+    void setAppName(const String &val);
 
     //called when AP mode and config portal is started
     void setAPCallback(void (*func)(KnWiFiManager *));
@@ -127,6 +128,7 @@ private:
     void setupConfigPortal();
     void prepareserver();
 
+    String _AppName = "~ MULTINET ~";
     const char *_apName = "MULTINET";
     const char *_apPassword = NULL;
     String _ssid = "";
