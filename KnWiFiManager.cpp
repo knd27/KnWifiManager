@@ -25,6 +25,11 @@ int KnWiFiManager::getblynkPort()
     return atoi(_knsettings.blynkPort);
 }
 
+String KnWiFiManager::getUptime()
+{
+    return uptime_formatter::getUptime();
+}
+
 void KnWiFiManager::readSetting()
 {
     EEPROM.begin(512);
@@ -155,33 +160,36 @@ void KnWiFiManager::handle_Info()
     page += String(F("<h1>"));
     page += _AppName;
     page += String(F("</h1><h3>Hardware Information</h3>"));
-
-    page += F("<dl>");
-    page += F("<dt>Chip ID</dt><dd>");
+    page += F("<table><tbody>");
+    page += F("<tr><td>Chip ID</td><td>:</td><td>");
     page += ESP.getChipId();
-    page += F("</dd>");
-    page += F("<dt>Flash Chip ID</dt><dd>");
+    page += F("</td></tr>");
+    page += F("<tr><td>Flash Chip ID</td><td>:</td><td>");
     page += ESP.getFlashChipId();
-    page += F("</dd>");
-    page += F("<dt>IDE Flash Size</dt><dd>");
+    page += F("</td></tr>");
+    page += F("<tr><td>IDE Flash Size</td><td>:</td><td>");
     page += ESP.getFlashChipSize();
-    page += F(" bytes</dd>");
-    page += F("<dt>Real Flash Size</dt><dd>");
+    page += F("</td></tr>");
+    page += F("<tr><td>Real Flash Size</td><td>:</td><td>");
     page += ESP.getFlashChipRealSize();
-    page += F(" bytes</dd>");
-    page += F("<dt>Soft AP IP</dt><dd>");
+    page += F("</td></tr>");
+    page += F("<tr><td>Soft AP IP</td><td>:</td><td>");
     page += WiFi.softAPIP().toString();
-    page += F("</dd>");
-    page += F("<dt>STA IP</dt><dd>");
+    page += F("</td></tr>");
+    page += F("<tr><td>STA IP</td><td>:</td><td>");
     page += WiFi.localIP().toString();
-    page += F("</dd>");
-    page += F("<dt>Soft AP MAC</dt><dd>");
+    page += F("</td></tr>");
+    page += F("<tr><td>Soft AP MAC</td><td>:</td><td>");
     page += WiFi.softAPmacAddress();
-    page += F("</dd>");
-    page += F("<dt>Station MAC</dt><dd>");
+    page += F("</td></tr>");
+    page += F("<tr><td>Station MAC</td><td>:</td><td>");
     page += WiFi.macAddress();
-    page += F("</dd>");
-    page += F("</dl>");
+    page += F("</td></tr>");
+    page += F("</td></tr>");
+    page += F("<tr><td>Uptime</td><td>:</td><td>");
+    page += uptime_formatter::getUptime();
+    page += F("</td></tr>");
+    page += F("</tbody></table>");
     page += F("<br/><form action=\"/\" method=\"get\"><button>Main Menu</button></form>");
     page += FPSTR(HTTP_END);
 
@@ -615,7 +623,7 @@ void KnWiFiManager::handleRoot()
     }
 
     String page = FPSTR(HTTP_HEADER);
-    page.replace("{v}", "Options");
+    page.replace("{v}", _AppName);
     page += FPSTR(HTTP_SCRIPT);
     page += FPSTR(HTTP_STYLE);
     //page += _customHeadElement;

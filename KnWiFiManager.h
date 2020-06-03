@@ -33,6 +33,8 @@
 #include <EEPROM.h>
 #include <ESP8266HTTPUpdateServer.h>
 
+#include "uptime_formatter.h"
+
 extern "C"
 {
 #include "user_interface.h"
@@ -68,7 +70,7 @@ typedef struct
 {
     boolean bootAP = 0;
     char blynkToken[33] = "";
-    char blynkServer[33] = "multinet.id";
+    char blynkServer[33] = "blynk.multinet.id";
     char blynkPort[6] = "8080";
     int salt = EEPROM_SALT;
 } KnSettings;
@@ -83,6 +85,7 @@ public:
     char *getblynkServer();
     char *getblynkToken();
     int getblynkPort();
+    String getUptime();
     void setBootAP(boolean bootAP);
     void run();
 
